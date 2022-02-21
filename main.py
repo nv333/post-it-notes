@@ -1,6 +1,6 @@
 ## importing lib modules
-from datetime import date
-from selectors import EpollSelector
+#from datetime import date
+#from selectors import EpollSelector
 import sqlite3 as sql   # db to store and retrieve notes
 from tkinter import *   # to create UI - contains widgets and input text fields
 from tkinter import messagebox  # to display prompts eg popups to user
@@ -28,12 +28,12 @@ def addNotes():
         messagebox.showerror(message="ENTER REQUIRED DETAILS")
     else:
         # insert into table
-        cur.execute("IMSERT INTO notesTable VALUES ('%s', '%s', '%s')" %(today, notesTitle, notes))
+        cur.execute("INSERT INTO notesTable VALUES ('%s', '%s', '%s')" %(today, notesTitle, notes))
         messagebox.showinfo(message="Note added")
         con.commit()
 
 # display all the notes in db
-def view_notes():
+def viewNotes():
     # read all the user input from entry widgets
     date = dateEntry.get()
     notesTitle = notesTitleEntry.get()
@@ -87,7 +87,7 @@ def deleteNotes():
     con.commit()
 
 # update existing notes
-def update_notes():
+def updateNotes():
     # get user input
     today = dateEntry.get()
     notesTitle = notesTitleEntry.get()
@@ -98,7 +98,7 @@ def update_notes():
         messagebox.showerror(message="ENTER REQUIRED DETAILS")
     # update the note
     else:
-        sqlStatement = "UPDATE notesTable SET nptes = '%s' WHERE date = '%s' and notesTitle = '%s'" %(notes, today, notesTitle)
+        sqlStatement = "UPDATE notesTable SET notes = '%s' WHERE date = '%s' and notesTitle = '%s'" %(notes, today, notesTitle)
 
     cur.execute(sqlStatement)
     messagebox.showinfo(message="Note updated")
@@ -106,8 +106,34 @@ def update_notes():
 
 ## creating user interface
 
-# invoke call to class to view a window
+# initialise window using tkinter constructor to use objects/widgets
 window = Tk()
 # set window dimensions and title
 window.geometry("500x300")
 window.title("Post-it Notes -Nuria Varela")
+
+titleLabel = Label(window, text="Post-it Notes - Nuria Varela").pack()
+
+## read inputs
+# date input
+dateLabel = Label(window, text="Date:").place(x=10, y=20)
+dateEntry = Entry(window, width=20)
+dateEntry.place(x=50, y=20)
+# notes title input
+notesTitleLabel = Label(window, text="Notes title:").place(x=10, y=50)
+notesTitleEntry = Entry(window, width=30)
+notesTitleEntry.place(x=80, y=50)
+# notes input
+notesLabel = Label(window, text="Notes:").place(x=10, y=90)
+notesEntry = Text(window, width = 50, height = 5)
+notesEntry.place(x=60, y=90)
+
+# perform notes functions
+button1 = Button(window, text='Add Notes', bg = 'Turquoise', fg='Red', command=addNotes).place(x=10, y=190)
+button2 = Button(window, text='View Notes', bg = 'Turquoise', fg='Red', command=viewNotes).place(x=110, y=190)
+button3 = Button(window, text='Delete Notes', bg = 'Turquoise', fg='Red', command=deleteNotes).place(x=210, y=190)
+button4 = Button(window, text='Update Notes', bg = 'Turquoise', fg='Red', command=updateNotes).place(x=320, y=190)
+
+# close app
+window.mainloop()
+con.close()
