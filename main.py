@@ -1,6 +1,4 @@
 ## importing lib modules
-#from datetime import date
-#from selectors import EpollSelector
 import sqlite3 as sql   # db to store and retrieve notes
 from tkinter import *   # to create UI - contains widgets and input text fields
 from tkinter import messagebox  # to display prompts eg popups to user
@@ -110,29 +108,29 @@ def updateNotes():
 window = Tk()
 # set window dimensions and title
 window.geometry("500x300")
-window.title("Post-it Notes -Nuria Varela")
+window.title("Post-it Notes - Nuria Varela")
 
 titleLabel = Label(window, text="Post-it Notes - Nuria Varela").pack()
 
 ## read inputs
 # date input
 dateLabel = Label(window, text="Date:").place(x=10, y=20)
-dateEntry = Entry(window, width=20)
+dateEntry = Entry(window, width=10)
 dateEntry.place(x=50, y=20)
 # notes title input
-notesTitleLabel = Label(window, text="Notes title:").place(x=10, y=50)
+notesTitleLabel = Label(window, text="Title:").place(x=10, y=50)
 notesTitleEntry = Entry(window, width=30)
-notesTitleEntry.place(x=80, y=50)
+notesTitleEntry.place(x=50, y=50)
 # notes input
 notesLabel = Label(window, text="Notes:").place(x=10, y=90)
 notesEntry = Text(window, width = 50, height = 5)
-notesEntry.place(x=60, y=90)
+notesEntry.place(x=50, y=90)
 
 # perform notes functions
-button1 = Button(window, text='Add Notes', bg = 'Turquoise', fg='Red', command=addNotes).place(x=10, y=190)
-button2 = Button(window, text='View Notes', bg = 'Turquoise', fg='Red', command=viewNotes).place(x=110, y=190)
-button3 = Button(window, text='Delete Notes', bg = 'Turquoise', fg='Red', command=deleteNotes).place(x=210, y=190)
-button4 = Button(window, text='Update Notes', bg = 'Turquoise', fg='Red', command=updateNotes).place(x=320, y=190)
+button1 = Button(window, text='Add Notes', bg = "#34A2FE", fg='Turquoise', command=addNotes).place(x=10, y=190)
+button2 = Button(window, text='View Notes', bg = "#34A2FE", fg='Purple', command=viewNotes).place(x=110, y=190)
+button3 = Button(window, text='Delete Notes', bg = "#34A2FE", fg='Black', command=deleteNotes).place(x=210, y=190)
+button4 = Button(window, text='Update Notes', bg = "#34A2FE", fg='White', command=updateNotes).place(x=320, y=190)
 
 # close app
 window.mainloop()
